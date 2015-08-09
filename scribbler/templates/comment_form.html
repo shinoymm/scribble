@@ -1,0 +1,23 @@
+<form id="comment_form" action="{% url 'comment' %}" method="post">
+  {% csrf_token %}
+  <div class="row input-field">
+    <div class="col s12">
+      {{comment_form.commentator}}<div class="red-text">{{comment_form.commentator.errors}}</div>
+      <label for="id_commentator">Name</label>
+    </div>
+  </div>
+  <div class="row input-field">
+    <div class="col s12">
+      {{comment_form.commentator_mail}}<div class="red-text">{{comment_form.commentator_mail.errors}}</div>
+      <label for="id_commentator_mail">Mail</label>
+    </div>
+  </div>
+  <div class="row input-field">
+    <div class="col s12">
+      {{comment_form.comment}}<div class="red-text">{{comment_form.comment.errors}}</div>
+      <label for="id_comment">Add a Comment</label>
+    </div>
+  </div>
+  <input type="hidden" name="post_id" value="{{object_list.id}}">
+  <button class="btn waves-effect waves-light btn-large" onclick="post_comment(event)">Submit</button>
+</form>

@@ -1,0 +1,18 @@
+{% load extra_tags %}
+{% for obj in object_list %}
+  <div class="card-panel row">
+    {% with year=obj.posted_on|date:"Y" month=obj.posted_on|date:'m' date=obj.posted_on|date:'d' title=obj.title %}
+      <div class="col s5">
+        <a href="{% url 'scribble' year month date title %}">
+          <img class="image-box" src="/media/{{obj.tiny_pic.url|get_filename}}">
+        </a>
+      </div>
+    {% endwith %}
+
+      <div class="col s7">
+        <h4>{{obj.title}}</h4>
+        <p>{{obj.brief|safe}}</p>
+      </div>
+  </div>
+
+{% endfor %}

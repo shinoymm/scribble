@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% load extra_tags %}
+
+{% block content %}
+
+
+<div class="parallax-container writeup-image">
+
+  <span class="writeup-title writeup-title-box z-depth-3">{{object_list.title|replace:"_| "|title}}</span>
+  <div class="parallax"><img src="/media/{{object_list.pic.url|get_filename}}"></div>
+</div>
+
+<div id="writeup_id" data-writeupid="{{object_list.id}}"></div>
+
+<div class="container">
+  <div class="card-panel z-depth-3">
+
+    <div class="grey-text">
+      <p>{{object_list.posted_on|date:'d M Y, P'}}</p>
+    </div>
+
+    {{object_list.content|safe}}
+
+    <div class="row">
+      <div class="col s12">
+        <ul id="comment_list" class="collection">
+
+        </ul>
+      </div>
+    </div>
+
+    <div class="row parrot-green">
+      <div class="col s8 offset-s2">
+          {% include 'comment_form.html' %}
+      </div>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+  function post_comment(event){
+    event.preventDefault();
+    data = $("#comment_form").serialize();
+    $.ajax({
+        url: $("#comment_form").attr('action'),
+        data: data,
+        type: 'POST',
+    }).done(function(response){
+        if(response.status){
+            $("#comment_form")[0].reset();
+            $("#comment_list").append(response.html);
+        }
+    });
+  }
+</script>
+
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+  <script>
+    var options = [
+    {selector: '#comment_list', offset: 200, callback: 'get_comments()'},
+  ]
+
+  $(document).ready(function(){
+        Materialize.scrollFire(options);
+  });
+
+  function get_comments(){
+    $.ajax({
+        url: '/get-comments/?pk='+$("#writeup_id").data('writeupid'),
+        type: 'GET',
+    }).done(function(response){
+        if(response.status){
+            $("#comment_list").append(response.html);
+        }
+    });
+  }
+  </script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>
+    {% block title %}{% endblock %}
+  </title>
+
+  {% block css %}
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% endblock %}
+
+  <header id="header">
+    {% block header %}{% endblock %}
+  </header>
+</head>
+<body class="snow-back">
+
+<div class="scribble-content">
+{% block content %}{% endblock %}
+</div>
+
+  <footer id="footer">
+    {% block footer %}{% endblock %}
+  </footer>
+
+  {% block js %}
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.3.min.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <script>
+      $(document).ready(function(){
+        $('.parallax').parallax();
+      });
+    </script>
+  {% endblock %}
+</body>
+</html>
+
