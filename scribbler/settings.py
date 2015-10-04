@@ -82,9 +82,17 @@ WSGI_APPLICATION = 'scribbler.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django_mongodb_engine',
+    #     'NAME': 'scribble',
+    # }
     'default': {
-        'ENGINE': 'django_mongodb_engine',
-        'NAME': 'scribble',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'scribbler',
+        'USER': 'root',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 

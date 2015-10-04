@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 
 from django.contrib import admin
-from scribble.views import ScribbleView, ScribbleListView, CommentView
+from scribble.views import ScribbleView, ScribbleListView, CommentView, RegisterView
 
 admin.autodiscover()
 
@@ -12,6 +12,7 @@ urlpatterns = patterns(
     # Examples:
     # url(r'^$', 'scribbler.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
+    url(r'^register/', RegisterView.as_view(), name='register'),
     url(r'^admin/', include(admin.site.urls)),
     (r'^tinymce/', include('tinymce.urls')),
     url(r'^home/', ScribbleListView.as_view()),

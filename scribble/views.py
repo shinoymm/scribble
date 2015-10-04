@@ -1,14 +1,31 @@
 from datetime import datetime
 import json
-from django.http.response import HttpResponse
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
+from django.http.response import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import FormView, CreateView
 from django.views.generic.list import ListView
 from djangotoolbox.http import JSONResponse
-from scribble.forms import CommentForm
+from scribble.forms import CommentForm, RegistrationForm
 from scribble.models import Piece, Writeup, Comment
 from django.template import loader
 from django.template.context import RequestContext
+
+
+class RegisterView(FormView):
+    form_class = RegistrationForm
+    success_url = '/'
+    template_name = 'register.html'
+
+    def form_valid(self, form):
+        user = User.objects.create_superuser(form.cleaned_data['username'], form.cleaned_data['email'],
+                                      form.cleaned_data['password'], first_name=form.cleaned_data['first_name'],
+                                      last_name=form.cleaned_data['last_name'])
+        if user:
+            return HttpResponseRedirect(self.success_url)
+        else:
+            raise Http404
 
 
 class ScribbleView(ListView):
