@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-SITE_ROOT = 'E:\Djangoproj\scribble\scribbler\scribbler'
+SITE_ROOT = os.path.join(BASE_DIR, 'scribbler')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -23,11 +23,19 @@ SECRET_KEY = 'r6e=th4jt#(kt35=_$aw(i%15o#ye215sdhj@8hvkvl^p!d34b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    'E:\\Djangoproj\\scribble\\scribbler\\scribbler\\static',
+    os.path.join(SITE_ROOT, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -112,14 +120,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-STATIC_URL = '/static/'
-# STATIC_ROOT = 'E:\Djangoproj\scribble\scribbler\scribbler'
-STATIC_ROOT = 'E:\\Djangoproj\\scribble\\scribbler\\static\\'
-
-MEDIA_ROOT = 'E:\\Djangoproj\\scribble\\scribbler\\media\\'
-
-MEDIA_URL = '/media/'
 
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table, spellchecker, paste, searchreplace",
